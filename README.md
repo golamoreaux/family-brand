@@ -2,6 +2,7 @@
 
 ![Image of Lamoreaux Logo](https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo.png =100x100)
 
+<img src="https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo.png" width="100" height="100"/>
 # Font
 
 - Garamond 
