@@ -1,6 +1,6 @@
 # Logo
 
-![Image of Lamoreaux Logo](./assets/LamoreauxLogo600236.svg)
+![Image of Lamoreaux Logo](./assets/LamoreauxLogo600x236.svg)
 
 
 # Color Palette
