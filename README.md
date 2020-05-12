@@ -13,3 +13,10 @@ Color Name | RGB | Hex
  Dark Blue | 0 38 84 |#002654
  Dark Red Grey | 112 112 112 |#707070
  Dark Blue Grey | 42 42 42 | #2A2A2A
+
+
+# References
+- Netflix Brand Guide https://brand.netflix.com/en/assets/brand-logo/
+- Twitter Brand Guide https://about.twitter.com/en_us/company/brand-resources.html
+- Snapchat Brand Guide https://storage.googleapis.com/snap-inc/brand-guidelines/snapchat-brand-standards.pdf
+- Style Guide advice https://venngage.com/blog/brand-style-guide/
