@@ -6,7 +6,7 @@
 <!-- <img src="https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo.png" width="100" height="100"/> -->
 # Font
 
-- Garamond <h2 style="font-family:Roboto">Hi</h2>
+- Garamond <div style="font-family:Roboto">Hello how are you doing this fine day today?</div>
 
 # Colors
 
