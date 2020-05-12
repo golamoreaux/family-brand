@@ -26,6 +26,10 @@ The typeface is simple and dignified. It embodies the qualities of:
 - composure and restraint
 
 The main text uses Garamond
+
+![Alt text](./controllers_brief.svg)
+<img src="./LamoreauxName.svg">
+
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" version="1.1">
   <text x="0" y="0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35;font-family:Garamond;">
 <tspan x="0" dy="1em">Garamond</tspan>
