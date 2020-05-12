@@ -1,6 +1,6 @@
 # Logo
 
-![Image of Lamoreaux Logo](https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo.png)
+![Image of Lamoreaux Logo](https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo.png =100x100)
 
 # Font
 
