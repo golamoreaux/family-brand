@@ -27,8 +27,8 @@ The typeface is simple and dignified. It embodies the qualities of:
 
 The main text uses Garamond
 
-![Lamoreaux Name](./assets/LamoreauxName.svg)
-<img src="./assets/LamoreauxName.svg">
+![Font Example](./assets/font-example.svg)
+<img src="./assets/font-example.svg">
 
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" version="1.1">
   <text x="0" y="0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35;font-family:Garamond;">
