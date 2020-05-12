@@ -29,20 +29,7 @@ The main text uses Garamond
 
 ![Font Example](./assets/font-example.svg)
 
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" version="1.1">
-  <text x="0" y="0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35;font-family:Garamond;">
-<tspan x="0" dy="1em">Garamond</tspan>
-<tspan x="0" dy="1em">ABCDEFGHIJKLMNOPQRSTUVWXYZ</tspan>
-<tspan x="0" dy="1em">abcdefghijklmnopqrstuvwxyz</tspan>
-</text>
-</svg>
-
-
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" version="1.1">
-  <text x="10" y="35" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35;font-family:Garamond;">Lamoreaux</text>
-</svg>
-
-
+![Font Name Example](./assets/font-name-example.svg)
 
 
 # References
