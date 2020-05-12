@@ -4,9 +4,12 @@
 
 # Colors
 
-239  65  53 French - Light Red
-  0  85 164 French - Light Blue
-206  17  38 French - Dark Red
-  0  38  84 French - Dark Blue
-112 112 112 French - Dark Red Grey
- 42  42  42 French - Dark Blue Grey
+
+|Color Name | RGB | Hex
+------------------------
+| Light Red | 239 65 53 | |
+| Light Blue | 0 85 164 | |
+| Dark Red | 206 17 38 | |
+| Dark Blue | 0 38 84 | |
+| Dark Red Grey | 112 112 112 | |
+| Dark Blue Grey | 42 42 42 | |
