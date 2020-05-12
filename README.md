@@ -1,6 +1,7 @@
 # Logo
 
-![Image of Lamoreaux Logo](https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo100x100.png)
+![Image of Lamoreaux Logo](./assets/LamoreauxLogo600236.svg)
+
 
 # Color Palette
 
@@ -40,3 +41,4 @@ The main text uses Garamond
 - Style Guide advice https://venngage.com/blog/brand-style-guide/
 - Instagrame Style guide https://en.instagram-brand.com/assets/icons
 - Whatsapp Style Guide https://whatsappbrand.com/
+- SVG Online Editor https://www.rapidtables.com/web/tools/svg-viewer-editor.html
