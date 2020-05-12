@@ -1,4 +1,5 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@100&display=swap" rel="stylesheet">
+
 # Logo
 
 ![Image of Lamoreaux Logo](https://github.com/briglx/family-brand/blob/master/assets/LamoreauxLogo100x100.png)
