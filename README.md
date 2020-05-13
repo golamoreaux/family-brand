@@ -1,7 +1,10 @@
 # Logo
 
+There are two wide logos. One for light backgrounds and one for dark
+
 ![Image of Lamoreaux Logo](./assets/LamoreauxLogo600x236.png)
 
+![Image of Lamoreaux Logo](./assets/LamoreauxLogoDark600x236.png)
 
 # Color Palette
 
