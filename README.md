@@ -6,6 +6,25 @@ There are two wide logos. One for light backgrounds and one for dark
 
 ![Image of Lamoreaux Logo](./assets/LamoreauxLogoDark600x236.png)
 
+
+## Design
+
+Based on a 100x100 design
+
+- Border 5px (Outside of the 100x100)
+
+- Red Shape Points
+    - If the total width is X
+    - 33% of X wide (33.33px)
+    - 33% of X tall (33.33px)
+    - Inside point at 1/6 from left edge, up 1/6 from bottom (5/6 from top) 16.65, 83.34
+    - Shape (0,33.33 16.66,83.33 66.66,100 0,100)
+- Blue Shape
+    - 100 x 100 wide and tall
+    - Point at 2/3 down, 1/3 from left edge (33.33, 66.66)
+    - Shape (0,0 100,0 100,100 33.33,66.66)
+
+
 # Color Palette
 
 
@@ -45,3 +64,4 @@ The main text uses Garamond
 - Instagrame Style guide https://en.instagram-brand.com/assets/icons
 - Whatsapp Style Guide https://whatsappbrand.com/
 - SVG Online Editor https://www.rapidtables.com/web/tools/svg-viewer-editor.html
+- Material Design Product Icons https://material.io/design/iconography/product-icons.html#grid-and-keyline-shapes
