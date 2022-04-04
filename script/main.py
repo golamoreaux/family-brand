@@ -16,7 +16,7 @@ VIEW_HEIGHT = VIEW_WIDTH
 PIXEL_WIDTH_SMALL = 24
 
 SCALE_FACTOR = 1  # Scale pixel drawing
-PIXEL_WIDTH = 20.0  
+PIXEL_WIDTH =  48
 MAX_WIDTH = PIXEL_WIDTH * SCALE_FACTOR
 MAX_HEIGHT = MAX_WIDTH
 CORNER_RADIUS = MAX_WIDTH * 12 / 192
@@ -29,10 +29,12 @@ COLOR_LIGHT_GREY = "#efefef"
 COLOR_GRAY = "#999999"
 COLOR_DARK_GRAY = "#8d8d8d"
 COLOR_RED = "#ff4081"
+COLOR_WHITE = "#fefefe"
 
 STROKE_WIDTH_MEDIUM = 1
 STROKE_WIDTH_THIN = STROKE_WIDTH_MEDIUM / 2
 STROKE_WIDTH_THICK = STROKE_WIDTH_MEDIUM * 2
+STROKE_WIDTH_GRID = PIXEL_WIDTH * 0.001
 STROKE_WIDTH_KEYLINE = (STROKE_WIDTH_THIN * ( PIXEL_WIDTH / PIXEL_WIDTH_SMALL) / GRID_SCALE_FACTOR) / 2
 # All lines are drawn on center
 # This makes outside border lines visually half of inside lines
@@ -57,6 +59,15 @@ KEYLINE_FILE = os.path.join(BASE_FOLDER, KEYLINE_FILE_NAME)
 KEYLINE_HIGHLIGHT_FILE = KEYLINE_FILE
 # KEYLINE_SQUARE_FILE_NAME = "keyline_square_gen.svg"
 # KEYLINE_SQUARE_FILE = os.path.join(BASE_FOLDER, KEYLINE_SQUARE_FILE_NAME)
+
+
+
+class Dimensions():
+    """Available image dimensions."""
+
+
+class SvgDraw():
+    """Create an SVG drawing instance."""
 
 
 def gen_id():
@@ -255,7 +266,7 @@ def build_grid_lines():
                 x2=x,
                 y2=MAX_HEIGHT,
                 stroke=COLOR_DIM_GREY,
-                stroke_width=STROKE_WIDTH_KEYLINE,
+                stroke_width=STROKE_WIDTH_GRID,
             )
         )
 
@@ -267,7 +278,7 @@ def build_grid_lines():
                 y1=y,
                 y2=y,
                 stroke=COLOR_DIM_GREY,
-                stroke_width=STROKE_WIDTH_KEYLINE,
+                stroke_width=STROKE_WIDTH_GRID,
             )
         )
 
@@ -313,7 +324,8 @@ def build_border():
 
 def build_keyline(square=False, wide=False, tall=False, circle=False):
     """Generate Keyline Shapes."""
-    tri_factor = 0.3532
+    tri_factor = 0.35412
+    # tri_factor = 0.33333
     lines = []
 
     keyline_lines = (
@@ -404,7 +416,9 @@ def build_keyline(square=False, wide=False, tall=False, circle=False):
         rect_wide = round(MAX_HEIGHT * 176 / 192)
         rect_short = round(MAX_WIDTH * 128 / 192)
         cir_radius = MAX_WIDTH * (88 / 192)
-        cir_small_radius = MAX_WIDTH * (40 / 192)       
+        
+        cir_small_radius = MAX_WIDTH * (40 / 192)   
+        
 
     keyline_rectangles = (
         (sqr_width, sqr_width, square),
@@ -443,7 +457,7 @@ def build_keyline(square=False, wide=False, tall=False, circle=False):
     return "\n".join(lines)
 
 
-def svg_header():
+def svg_header(size):
     """Return the svg header."""
     lines = []
     lines.append(
@@ -463,13 +477,13 @@ def svg_footer():
     return "</svg>"
 
 
-def grid_box_image():
+def grid_box_image(size):
     """Build Grid Box svg."""
     lines = []
 
-    lines.append(svg_header())
-    lines.append(build_grid_lines())
-    lines.append(build_border())
+    lines.append(svg_header(size=size))
+    lines.append(build_grid_lines(size=size))
+    lines.append(build_border(size=size))
     lines.append(svg_footer())
 
     return lines
@@ -492,7 +506,20 @@ def logo_image():
     """Build Logo svg."""
     COLOR_RED = "#CE1126"
     COLOR_BLUE = "#002654"
-    # DEFAULT_OPACITY = 1
+
+    RED_WIDTH = 1. / 3
+    RED_HEIGTH = RED_WIDTH
+    RED_INSIDE_POINT_WIDTH = 1. / 6
+    RED_INSIDE_POINT_HEIGHT = RED_INSIDE_POINT_WIDTH
+    red_polygon = [(0, 33.33), (16.66, 83.33), (66.66, 100), (0, 100)]
+
+    BLUE_POINT_TOP = 2. / 3
+    BLUE_POINT_LEFT = 1. / 3
+
+    # 16x16
+    # 32x32
+    # 48x48
+    # 256x256
 
     if PIXEL_WIDTH == 20:
         width_ratio = 16 / 20
@@ -501,38 +528,36 @@ def logo_image():
     else:
         width_ratio = 44 / 48
 
+    # Set bounds for image
     max_width = round(MAX_WIDTH * width_ratio)
     max_height = round(MAX_HEIGHT * width_ratio)
     x_offset = round((MAX_WIDTH - max_width) / 2)
     y_offset = round((MAX_WIDTH - max_width) / 2)
 
+    red_width =  round(max_width - (max_width * RED_WIDTH))
+    red_height =  red_width
+    red_inside_point = round(max_width * RED_INSIDE_POINT_WIDTH)
+
+    # Blue Polygon
+    blue_point_top = round(max_height * BLUE_POINT_TOP)
+    blue_point_left = round(max_height * BLUE_POINT_LEFT)
+
+    
     lines = []
 
     lines.append(svg_header())
     lines.append(build_grid_lines())
-    lines.append(build_keyline(square=True))
+    lines.append(build_keyline())
 
     # Background
     lines.append(
-        f'\t<rect x="0" y="0" width="100%" height="100%" stroke="None" fill="{COLOR_LIGHT_GREY}" />'
-    )
-
-    # Red Polygon
-    # red_polygon = [(0, 33.33), (16.66, 83.33), (66.66, 100), (0, 100)]
-    RED_WIDTH = round(max_width - (max_width / 3))
-    RED_HEIGTH = round(max_height - (max_height / 3))
-    RED_INSIDE_POINT_WIDTH = round(max_width / 6)
-    RED_INSIDE_POINT_HEIGHT = round(max_height / 6)
-    red_polygon = [(0, 33.33), (16.66, 83.33), (66.66, 100), (0, 100)]
+        f'\t<rect x="0" y="0" width="100%" height="100%" stroke="None" fill="{COLOR_WHITE}" />'
+    )    
     lines.append(
-        f'\t<polygon stroke="None" fill="{COLOR_RED}" points="{x_offset},{y_offset + max_height - RED_HEIGTH} {x_offset + RED_INSIDE_POINT_WIDTH},{y_offset + max_height - RED_INSIDE_POINT_HEIGHT} {x_offset + RED_WIDTH},{y_offset + max_height} {x_offset},{y_offset + max_height}" />'
-    )
-
-    # Blue Polygon
-    BLUE_POINT_TOP = round(max_height * 2 / 3)
-    BLUE_POINT_LEFT = round(max_width * 1 / 3)
+        f'\t<polygon stroke="None" fill="{COLOR_RED}" points="{x_offset},{y_offset + max_height - red_height} {x_offset + red_inside_point},{y_offset + max_height - red_inside_point} {x_offset + red_width},{y_offset + max_height} {x_offset},{y_offset + max_height}" />'
+    )    
     lines.append(
-        f'\t<polygon stroke="None" fill="{COLOR_BLUE}" points="{x_offset},{y_offset} {x_offset + max_width},{y_offset} {x_offset + max_width},{y_offset + max_height} {x_offset + BLUE_POINT_LEFT},{y_offset + BLUE_POINT_TOP}" />'
+        f'\t<polygon stroke="None" fill="{COLOR_BLUE}" points="{x_offset},{y_offset} {x_offset + max_width},{y_offset} {x_offset + max_width},{y_offset + max_height} {x_offset + blue_point_left},{y_offset + blue_point_top}" />'
     )
 
     # Border
@@ -556,23 +581,23 @@ def main(image, highlight, size):
 
     if image == IMAGE_GRID:
         file_name = GRID_FILE
-        image_svg = grid_box_image()
+        image_svg = grid_box_image(size=size)
     elif image == IMAGE_KEYLINE:
         file_name = KEYLINE_HIGHLIGHT_FILE
         if highlight == 'square':            
-            image_svg = keyline_image(square=True)
+            image_svg = keyline_image(square=True, size=size)
         elif highlight == 'wide-rect':
-            image_svg = keyline_image(wide=True)
+            image_svg = keyline_image(wide=True, size=size)
         elif highlight == 'tall-rect':
-            image_svg = keyline_image(tall=True)
+            image_svg = keyline_image(tall=True, size=size)
         elif highlight == 'circle':
-            image_svg = keyline_image(circle=True)
+            image_svg = keyline_image(circle=True, size=size)
         else:
             file_name = KEYLINE_FILE
-            image_svg = keyline_image()
+            image_svg = keyline_image(size=size)
     else: 
         file_name = LOGO_FILE
-        image_svg = logo_image()
+        image_svg = logo_image(size=size)
     
     save_svg(file_name, image_svg)
 
