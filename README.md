@@ -24,6 +24,14 @@ Based on a 100x100 design
     - Point at 2/3 down, 1/3 from left edge (33.33, 66.66)
     - Shape (0,0 100,0 100,100 33.33,66.66)
 
+## Key Line
+
+The logo uses the Keyline from material design
+
+![Keyline 48x48](./assets/keyline_gen_48.svg)
+
+![Logo 48x48](./assets/logo_48.svg)
+
 
 # Color Palette
 
@@ -40,6 +48,8 @@ Color Name | RGB | Hex
 
 # Clear Space, Minimum Space
 
+The Padding around the logo is formally defined as 1/12 the live area of logo.
+
 # Typography
 
 The typeface is simple and dignified. It embodies the qualities of:
@@ -54,6 +64,31 @@ The main text uses Garamond
 
 ![Font Name Example](./assets/font-name-example.svg)
 
+# Standard Icon Sizes
+
+| Device or context |  Icon size |
+|-----------------|-------------|
+| iPhone | 60x60 pt (180x180 px @3x) |
+| iPhone       |60x60 pt (120x120 px @2x) |
+| iPad, iPad mini | 76x76 pt (152x152 px @2x) |
+| App Store  | 1024x1024 pt (1024x1024 px @1x) |
+
+| iPhone Spotlight      | 	40x40 pt (120x120 px @3x) |
+| iPhone   Spotlight    | 	40x40 pt (80x80 px @2x) |
+| iPad Pro, iPad, iPad mini Spotlight | 	40x40 pt (80x80 px @2x) |
+
+| iPhone Settings | 29x29 pt (87x87 px @3x) |
+| iPhone Settings | 29x29 pt (58x58 px @2x) |
+| iPhone Notification | 38x38 pt (114x114 px @3x) |
+| iPhone Notification | 38x38 pt (76x76 px @2x) |
+
+| iPad Pro  |  83.5x83.5 pt (167x167 px @2x) |
+| iPad Pro Spotlight | 	40x40 pt (80x80 px @2x) |
+| iPad Pro Settings | 		29x29 pt (58x58 px @2x) |
+| iPad Pro Notificatino | 	38x38 pt (76x76 px @2x) |
+
+
+
 
 # References
 - Coke Zero Style Guide https://issuu.com/zakaz4ik/docs/styleguide-coca-cola
@@ -65,3 +100,4 @@ The main text uses Garamond
 - Whatsapp Style Guide https://whatsappbrand.com/
 - SVG Online Editor https://www.rapidtables.com/web/tools/svg-viewer-editor.html
 - Material Design Product Icons https://material.io/design/iconography/product-icons.html#grid-and-keyline-shapes
+- Apple App icon https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/app-icon/

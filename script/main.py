@@ -1,9 +1,12 @@
 #!/usr/bin/python
 """Script to help build svg."""
 import argparse
+from decimal import ROUND_DOWN
 import os
 import random
 import string
+
+from isort import file
 
 # Consts
 IMAGE_GRID = "grid"
@@ -19,8 +22,8 @@ SCALE_FACTOR = 1  # Scale pixel drawing
 PIXEL_WIDTH =  48
 MAX_WIDTH = PIXEL_WIDTH * SCALE_FACTOR
 MAX_HEIGHT = MAX_WIDTH
-CORNER_RADIUS = MAX_WIDTH * 12 / 192
-CORNER_RADIUS_SMALL = 2
+# CORNER_RADIUS = MAX_WIDTH * 12 / 192
+# CORNER_RADIUS_SMALL = 2
 
 GRID_SCALE_FACTOR = 10
 
@@ -47,6 +50,8 @@ DEFAULT_STROKE = COLOR_GRAY
 DEFAULT_STROKE_WIDTH = STROKE_WIDTH_MEDIUM
 DEFAULT_FILL = COLOR_LIGHT_GREY
 
+DEFAULT_CORNER_RADIUS = 2
+
 # Files
 BASE_FOLDER = "assets"
 LOGO_FILE_NAME = "logo.svg"
@@ -64,6 +69,194 @@ KEYLINE_HIGHLIGHT_FILE = KEYLINE_FILE
 
 class Dimensions():
     """Available image dimensions."""
+
+    DEFAULT_VIEW_WIDTH = 900
+    DEFAULT_VIEW_HEIGHT = DEFAULT_VIEW_WIDTH
+    # PIXEL_WIDTH_SMALL = 24
+
+    DEFAULT_SCALE_FACTOR = 1  # Scale pixel drawing
+    DEFAULT_PIXEL_WIDTH =  48.
+    # MAX_WIDTH = PIXEL_WIDTH * SCALE_FACTOR
+    # MAX_HEIGHT = MAX_WIDTH
+
+    
+    # CORNER_RADIUS_SMALL = 2
+
+    SYSTEM_ICON_LAYOUT_SIZE = 24
+    SYSTEM_ICON_DENSE_LAYOUT_SIZE = 20
+    PRODUCT_ICON_SIZE = 48
+    LIVE_AREA = 20
+    LIVE_AREA_DENSE = 16
+    PADDING = 2
+
+
+    def __init__(self, pixel_width=DEFAULT_PIXEL_WIDTH):
+        """Initalize new Deimension object."""
+        self.pixel_width = pixel_width
+        self.scale_factor = self.DEFAULT_SCALE_FACTOR
+        self.view_width = self.DEFAULT_VIEW_WIDTH
+        self.view_height = self.DEFAULT_VIEW_HEIGHT
+
+
+    @property
+    def max_width(self):
+        return self.pixel_width * self.scale_factor
+
+    @property
+    def max_height(self):
+        return self.max_width
+
+    @property
+    def cir_radius(self):
+        """Define radius of great circle."""
+        ratio = 88 / 192
+
+        if self.pixel_width == 8:
+            return 4
+        elif self.pixel_width == self.SYSTEM_ICON_DENSE_LAYOUT_SIZE:
+            return (self.pixel_width - self.PADDING * 2 ) / 2
+        elif self.pixel_width == self.SYSTEM_ICON_LAYOUT_SIZE:
+            return (self.pixel_width - self.PADDING * 2 ) / 2
+        elif self.pixel_width == 29:
+            return (self.pixel_width - self.PADDING * 2 ) / 2
+        # elif self.pixel_width == 38:
+        #     return (self.pixel_width - self.PADDING * 2.5 ) / 2
+        elif self.pixel_width <= 40:
+            return (self.pixel_width - self.PADDING  * 2 ) / 2
+        elif self.pixel_width == 60:
+            ratio = 27 / 60
+        elif self.pixel_width == 87:
+            return 39.5
+        elif self.pixel_width == 167:
+            return 76.5
+
+        return round(self.max_width * ratio) 
+
+    @property
+    def live_area_width(self):
+        """Define the live area width."""
+        live_area_width = self.cir_radius * 2
+        return live_area_width
+    
+    @property
+    def live_area_height(self):
+        """Define the live area height."""
+        live_area_height = self.cir_radius * 2
+        return live_area_height
+
+    @property
+    def padding(self):
+        """Define the padding around the logo."""
+        live_area_width = self.cir_radius * 2
+        padding = round((self.max_width - live_area_width) / 2)
+        return padding
+
+    @property
+    def tri_factor(self):
+        """Define the trifactor to divide the shape."""
+        tri_factor = 0.35412
+        tri_factor = 1. / 3
+
+        if self.pixel_width == self.SYSTEM_ICON_LAYOUT_SIZE:
+            tri_factor = 3. / 10
+        # if self.pixel_width == self.PRODUCT_ICON_SIZE * 4:
+        #     tri_factor = 60. / 176
+
+        return  tri_factor
+
+    @property
+    def square_width(self):
+        """Define width of keyline square."""   
+        ratio = 152 / 192
+
+        if self.pixel_width == 8:
+            ratio = 6. / 8
+        elif self.pixel_width <= self.SYSTEM_ICON_DENSE_LAYOUT_SIZE:
+            ratio =  14. / self.SYSTEM_ICON_DENSE_LAYOUT_SIZE
+        elif self.pixel_width <= self.SYSTEM_ICON_LAYOUT_SIZE:
+            ratio =  18. / self.SYSTEM_ICON_LAYOUT_SIZE
+        elif self.pixel_width <= 38:
+            ratio =  30. / 38
+        elif self.pixel_width <= 40:
+            ratio = 30. / 40
+        elif self.pixel_width <= 76:
+            ratio = 62. / 76
+        elif self.pixel_width <= 80:
+            ratio = 64. / 80
+        elif self.pixel_width == 120:
+            ratio = 96. / 120
+        elif self.pixel_width == 167:
+            ratio = 133. / 167
+        
+       
+        
+        return round(self.max_width * ratio)
+
+    @property
+    def short_side(self):
+        """Define the short side of a rectangle."""
+
+        ratio =  128 / 192
+
+        if self.pixel_width == 8:
+            ratio = 6. / 8
+        elif self.pixel_width <= self.SYSTEM_ICON_DENSE_LAYOUT_SIZE:
+            ratio = 12. / self.SYSTEM_ICON_DENSE_LAYOUT_SIZE
+        elif self.pixel_width < self.SYSTEM_ICON_LAYOUT_SIZE:
+            ratio = 12. / self.SYSTEM_ICON_LAYOUT_SIZE
+        elif self.pixel_width <= 38:
+            ratio =  26. / 38
+        elif self.pixel_width == 40:
+            ratio = 26. / 40
+        elif self.pixel_width == 58:
+            ratio = 38. / 58
+        elif self.pixel_width == 76:
+            ratio = 52. / 76
+        elif self.pixel_width == 80:
+            ratio = 54. / 80
+        elif self.pixel_width == 87:
+            ratio = 59. / 87
+        elif self.pixel_width == 152:
+            ratio = 100. / 152
+        elif self.pixel_width == 167:
+            ratio = 111. / 167
+    
+        short_side = round(self.max_width * ratio) 
+        return short_side
+
+    @property
+    def corner_offset(self):
+        """Define the corner offset."""
+        corner_offset = self.max_width * 1 / 6
+
+        corner_offset = ((self.max_width - self.square_width) / 2) + self.corner_radius
+
+        return corner_offset
+
+    
+    @property
+    def corner_radius(self):
+        """Define the corner radius."""
+        ratio =  12 / 192
+
+        corner_radius = self.max_width * ratio
+
+        if self.pixel_width == 8:
+            corner_radius = 0.5
+        elif self.pixel_width <= self.SYSTEM_ICON_DENSE_LAYOUT_SIZE:
+            corner_radius = 1.5
+        elif self.pixel_width <= self.SYSTEM_ICON_LAYOUT_SIZE:
+            corner_radius = 2
+
+        return corner_radius
+
+
+
+
+
+
+
+
 
 
 class SvgDraw():
@@ -208,13 +401,13 @@ def build_keyline_circle(
     )
 
 
-def build_keyline_rect(height=MAX_HEIGHT, width=MAX_WIDTH, bold=False, corner_radius=CORNER_RADIUS):
+def build_keyline_rect(height=MAX_HEIGHT, width=MAX_WIDTH, bold=False, corner_radius=DEFAULT_CORNER_RADIUS, size=None):
     """Build a keyline rectangle."""
     key_rx = corner_radius
     key_ry = key_rx
 
-    shape_top = (MAX_HEIGHT / 2) - (height / 2)
-    shape_left = (MAX_WIDTH / 2) - (width / 2)
+    shape_top = (size.max_height / 2) - (height / 2)
+    shape_left = (size.max_width / 2) - (width / 2)
 
     if bold:
         stroke = COLOR_RED
@@ -248,33 +441,33 @@ def build_keyline_rect(height=MAX_HEIGHT, width=MAX_WIDTH, bold=False, corner_ra
     )
 
 
-def build_grid_lines():
+def build_grid_lines(size):
     """Build grid lines."""
     lines = []
 
     # Background
     background_string = build_rectangle(
-        width=MAX_WIDTH, height=MAX_HEIGHT, stroke="None"
+        width=size.max_width, height=size.max_height, stroke="None"
     )
     lines.append(background_string)
 
     # Vertical lines
-    for x in range(0, int(MAX_WIDTH + SCALE_FACTOR), SCALE_FACTOR):
+    for x in range(0, int(size.max_width + size.scale_factor), size.scale_factor):
         lines.append(
             build_line(
                 x1=x,
                 x2=x,
-                y2=MAX_HEIGHT,
+                y2=size.max_height,
                 stroke=COLOR_DIM_GREY,
                 stroke_width=STROKE_WIDTH_GRID,
             )
         )
 
     # horizontal lines
-    for y in range(0, int(MAX_HEIGHT + SCALE_FACTOR), SCALE_FACTOR):
+    for y in range(0, int(size.max_height +  size.scale_factor),  size.scale_factor):
         lines.append(
             build_line(
-                x2=MAX_WIDTH,
+                x2=size.max_width ,
                 y1=y,
                 y2=y,
                 stroke=COLOR_DIM_GREY,
@@ -285,35 +478,35 @@ def build_grid_lines():
     return "\n".join(lines)
 
 
-def build_border():
+def build_border(size):
     """Build a Border."""
     lines = []
 
     # Border
     lines.append(
         build_line(
-            x2=MAX_WIDTH, stroke=COLOR_DARK_GRAY, stroke_width=STROKE_WIDTH_BORDER
+            x2=size.max_width, stroke=COLOR_DARK_GRAY, stroke_width=STROKE_WIDTH_BORDER
         )
     )
     lines.append(
         build_line(
-            y1=MAX_HEIGHT,
-            x2=MAX_WIDTH,
-            y2=MAX_HEIGHT,
+            y1=size.max_height,
+            x2=size.max_width,
+            y2=size.max_height,
             stroke=COLOR_DARK_GRAY,
             stroke_width=STROKE_WIDTH_BORDER,
         )
     )
     lines.append(
         build_line(
-            y2=MAX_HEIGHT, stroke=COLOR_DARK_GRAY, stroke_width=STROKE_WIDTH_BORDER
+            y2=size.max_height, stroke=COLOR_DARK_GRAY, stroke_width=STROKE_WIDTH_BORDER
         )
     )
     lines.append(
         build_line(
-            x1=MAX_WIDTH,
-            x2=MAX_WIDTH,
-            y2=MAX_HEIGHT,
+            x1=size.max_width,
+            x2=size.max_width,
+            y2=size.max_height,
             stroke=COLOR_DARK_GRAY,
             stroke_width=STROKE_WIDTH_BORDER,
         )
@@ -322,59 +515,60 @@ def build_border():
     return "\n".join(lines)
 
 
-def build_keyline(square=False, wide=False, tall=False, circle=False):
+def build_keyline(square=False, wide=False, tall=False, circle=False, size=None):
     """Generate Keyline Shapes."""
-    tri_factor = 0.35412
+    # tri_factor = 0.35412
     # tri_factor = 0.33333
+    tri_factor = size.tri_factor
     lines = []
 
     keyline_lines = (
         (
-            MAX_WIDTH / 2,
+            size.max_width / 2,
             0,
-            MAX_WIDTH / 2,
-            MAX_HEIGHT,
+            size.max_width / 2,
+            size.max_height,
         ),
         (
-            round(MAX_WIDTH * tri_factor),
+            size.padding + round(size.live_area_width * tri_factor),
             0,
-            round(MAX_WIDTH * tri_factor),
-            MAX_HEIGHT,
+            size.padding + round(size.live_area_width * tri_factor),
+            size.max_height,
         ),
         (
-            round(MAX_WIDTH * (1 - tri_factor)),
+            size.padding + round(size.live_area_width * (1 - tri_factor)),
             0,
-            round(MAX_WIDTH * (1 - tri_factor)),
-            MAX_HEIGHT,
-        ),
-        (
-            0,
-            MAX_HEIGHT / 2,
-            MAX_WIDTH,
-            MAX_HEIGHT / 2,
+            size.padding + round(size.live_area_width * (1 - tri_factor)),
+            size.max_height,
         ),
         (
             0,
-            round(MAX_HEIGHT * tri_factor),
-            MAX_WIDTH,
-            round(MAX_HEIGHT * tri_factor),
+            size.max_height / 2,
+            size.max_width,
+            size.max_height / 2,
         ),
         (
             0,
-            round(MAX_HEIGHT * (1 - tri_factor)),
-            MAX_WIDTH,
-            round(MAX_HEIGHT * (1 - tri_factor)),
+            size.padding + round(size.live_area_height * tri_factor),
+            size.max_width,
+            size.padding + round(size.live_area_height * tri_factor),
+        ),
+        (
+            0,
+            size.padding + round(size.live_area_height * (1 - tri_factor)),
+            size.max_width,
+            size.padding + round(size.live_area_height * (1 - tri_factor)),
         ),
         (
             0,
             0,
-            MAX_WIDTH,
-            MAX_HEIGHT,
+            size.max_width,
+            size.max_height,
         ),
         (
             0,
-            MAX_HEIGHT,
-            MAX_WIDTH,
+            size.max_height,
+            size.max_width,
             0,
         ),
     )
@@ -390,35 +584,51 @@ def build_keyline(square=False, wide=False, tall=False, circle=False):
         )
 
     # Shapes
-    if PIXEL_WIDTH < PIXEL_WIDTH_SMALL:
-        sqr_width = 14
-        corner_radius = 1.5
-        corner_offset = 4.5
-        rect_wide = 16
-        rect_short = 12
-        cir_radius = 8 
-        cir_small_radius = 4
+
+    # sqr_width = round(size.max_width * 152 / 192)
+    sqr_width = size.square_width
+    corner_radius = size.corner_radius  
+    corner_offset = size.corner_offset
+    # rect_wide = round(size.max_height * 176 / 192)
+    # rect_short = round(size.max_width * 128 / 192)
+    rect_short = size.short_side
+    rect_wide =  size.cir_radius * 2
+    # cir_radius = size.max_width * (88 / 192)    
+    cir_radius = size.cir_radius    
+    cir_small_radius = round(size.max_width * (40 / 192) )  
+
+    # if size.pixel_width == 8:
+        # sqr_width = 6
+        # corner_radius = .5
+        # corner_offset = 1.5
+        # rect_wide = 8
+        # rect_short = 6
+        # cir_radius = 4
+        # cir_small_radius = 2
+    # elif size.pixel_width < PIXEL_WIDTH_SMALL:
+        # sqr_width = 14
+        # corner_radius = 1.5
+        # corner_offset = 4.5
+        # rect_wide = 16
+        # rect_short = 12
+        # cir_radius = 8 
+        # cir_small_radius = 4
         
-    elif PIXEL_WIDTH == PIXEL_WIDTH_SMALL:
+    # elif size.pixel_width == PIXEL_WIDTH_SMALL:
         # corner_radius = CORNER_RADIUS_SMALL
-        sqr_width = 18        
-        corner_radius = CORNER_RADIUS_SMALL
-        corner_offset = 5
-        rect_wide = 20
-        rect_short = round(MAX_WIDTH * 128 / 192)
-        cir_radius = 10 
-        cir_small_radius = MAX_WIDTH * (40 / 192) 
+        # sqr_width = 18        
+        # corner_radius = CORNER_RADIUS_SMALL
+        # corner_offset = 5
+        # rect_wide = 20
+        # rect_short = round(size.max_width * 128 / 192)
+        # cir_radius = 10 
+        # cir_small_radius = size.max_width * (40 / 192) 
     
-    else:
-        sqr_width = round(MAX_WIDTH * 152 / 192)
-        corner_radius = CORNER_RADIUS  
-        corner_offset = MAX_WIDTH * 1 / 6
-        rect_wide = round(MAX_HEIGHT * 176 / 192)
-        rect_short = round(MAX_WIDTH * 128 / 192)
-        cir_radius = MAX_WIDTH * (88 / 192)
-        
-        cir_small_radius = MAX_WIDTH * (40 / 192)   
-        
+    # elif size.pixel_width == 192:
+        # corner_radius = 4 * CORNER_RADIUS 
+        # corner_offset = size.max_width * 1 / 6
+        # cir_small_radius = 4 * size.max_width * (40 / 192) 
+       
 
     keyline_rectangles = (
         (sqr_width, sqr_width, square),
@@ -431,18 +641,19 @@ def build_keyline(square=False, wide=False, tall=False, circle=False):
                 height=rect[0],
                 width=rect[1],
                 bold=rect[2],
-                corner_radius=corner_radius
+                corner_radius=corner_radius, 
+                size=size
             )
         )
 
     keyline_circles = (
         # cx, cy, r
-        (MAX_WIDTH / 2, MAX_WIDTH / 2, cir_radius, circle),
-        (MAX_WIDTH / 2, MAX_WIDTH / 2, cir_small_radius, False),
+        (size.max_width / 2, size.max_width / 2, cir_radius, circle),
+        (size.max_width / 2, size.max_width / 2, cir_small_radius, False),
         (corner_offset, corner_offset, corner_radius , False),
-        (MAX_WIDTH - corner_offset, corner_offset, corner_radius , False),
-        (corner_offset, MAX_HEIGHT - corner_offset, corner_radius, False),
-        (MAX_WIDTH - corner_offset, MAX_HEIGHT - corner_offset, corner_radius, False),
+        (size.max_width - corner_offset, corner_offset, corner_radius , False),
+        (corner_offset, size.max_height - corner_offset, corner_radius, False),
+        (size.max_width - corner_offset, size.max_height - corner_offset, corner_radius, False),
     )
     for circ in keyline_circles:
         lines.append(
@@ -461,7 +672,7 @@ def svg_header(size):
     """Return the svg header."""
     lines = []
     lines.append(
-        f'<svg viewBox="0 0 {MAX_WIDTH} {MAX_HEIGHT}" width="{VIEW_WIDTH}" height="{VIEW_HEIGHT}"'
+        f'<svg viewBox="0 0 {size.max_width} {size.max_height}" width="{size.view_width}" height="{size.view_height}"'
     )
     lines.append(
         'xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"'
@@ -489,80 +700,96 @@ def grid_box_image(size):
     return lines
 
 
-def keyline_image(square=False, wide=False, tall=False, circle=False):
+def keyline_image(square=False, wide=False, tall=False, circle=False, size=None):
     """Build keyline Box svg."""
     lines = []
 
-    lines.append(svg_header())
-    lines.append(build_grid_lines())
-    lines.append(build_keyline(square=square, wide=wide, tall=tall, circle=circle))
-    lines.append(build_border())
+    lines.append(svg_header(size=size))
+    lines.append(build_grid_lines(size=size))
+    lines.append(build_keyline(square=square, wide=wide, tall=tall, circle=circle, size=size))
+    lines.append(build_border(size=size))
     lines.append(svg_footer())
 
     return lines
 
 
-def logo_image():
+def logo_image(size=None):
     """Build Logo svg."""
     COLOR_RED = "#CE1126"
     COLOR_BLUE = "#002654"
 
-    RED_WIDTH = 1. / 3
-    RED_HEIGTH = RED_WIDTH
-    RED_INSIDE_POINT_WIDTH = 1. / 6
-    RED_INSIDE_POINT_HEIGHT = RED_INSIDE_POINT_WIDTH
-    red_polygon = [(0, 33.33), (16.66, 83.33), (66.66, 100), (0, 100)]
+    # RED_WIDTH = 1. / 3
+    # RED_INSIDE_POINT_WIDTH = 1. / 6
+    # red_polygon = [(0, 33.33), (16.66, 83.33), (66.66, 100), (0, 100)]
 
-    BLUE_POINT_TOP = 2. / 3
-    BLUE_POINT_LEFT = 1. / 3
+    # BLUE_POINT_TOP = 2. / 3
+    # BLUE_POINT_LEFT = 1. / 3
 
     # 16x16
     # 32x32
     # 48x48
     # 256x256
 
-    if PIXEL_WIDTH == 20:
-        width_ratio = 16 / 20
-    elif PIXEL_WIDTH == PIXEL_WIDTH_SMALL:
-        width_ratio = 20 / 24
-    else:
-        width_ratio = 44 / 48
+    # if size.pixel_width == 8:
+    #     width_ratio = 1
+    # elif size.pixel_width == 20:
+    #     width_ratio = 16 / 20
+    # elif size.pixel_width == PIXEL_WIDTH_SMALL:
+    #     width_ratio = 20 / 24
+    # elif size.pixel_width == 60:
+    #     width_ratio = 54 / 60
+    # else:
+    #     width_ratio = 44 / 48
 
     # Set bounds for image
-    max_width = round(MAX_WIDTH * width_ratio)
-    max_height = round(MAX_HEIGHT * width_ratio)
-    x_offset = round((MAX_WIDTH - max_width) / 2)
-    y_offset = round((MAX_WIDTH - max_width) / 2)
+    # max_width = round(size.max_width * width_ratio)
+    # max_height = round(size.max_height * width_ratio)
+    live_area_width = size.live_area_width
+    live_area_height = size.live_area_width
+    x_offset = size.padding
+    y_offset = size.padding
 
-    red_width =  round(max_width - (max_width * RED_WIDTH))
+    # red_width =  round(live_area_width - (live_area_width * RED_WIDTH))
+    red_width =  round(live_area_width - (live_area_width * size.tri_factor))
     red_height =  red_width
-    red_inside_point = round(max_width * RED_INSIDE_POINT_WIDTH)
+    # red_inside_point = round(live_area_width * RED_INSIDE_POINT_WIDTH)
+    red_inside_point = round(live_area_width *  size.tri_factor / 2)
 
     # Blue Polygon
-    blue_point_top = round(max_height * BLUE_POINT_TOP)
-    blue_point_left = round(max_height * BLUE_POINT_LEFT)
+    # blue_point_top = round(live_area_height * BLUE_POINT_TOP)
+    # blue_point_left = round(live_area_height * BLUE_POINT_LEFT)
+    blue_point_top = round(live_area_height - live_area_height * size.tri_factor )
+    blue_point_left = round(live_area_height * size.tri_factor)
+
+    # if size.pixel_width == size.SYSTEM_ICON_LAYOUT_SIZE:
+    #     blue_point_top = blue_point_top + 1
+    #     blue_point_left = blue_point_left - 1
+    # if size.pixel_width == 40:
+    #     blue_point_top = blue_point_top + 1
+    #     blue_point_left = blue_point_left - 1
+
 
     
     lines = []
 
-    lines.append(svg_header())
-    lines.append(build_grid_lines())
-    lines.append(build_keyline())
+    lines.append(svg_header(size=size))
+    lines.append(build_grid_lines(size=size))
+    lines.append(build_keyline(size=size))
 
     # Background
     lines.append(
         f'\t<rect x="0" y="0" width="100%" height="100%" stroke="None" fill="{COLOR_WHITE}" />'
     )    
     lines.append(
-        f'\t<polygon stroke="None" fill="{COLOR_RED}" points="{x_offset},{y_offset + max_height - red_height} {x_offset + red_inside_point},{y_offset + max_height - red_inside_point} {x_offset + red_width},{y_offset + max_height} {x_offset},{y_offset + max_height}" />'
+        f'\t<polygon stroke="None" fill="{COLOR_RED}" points="{x_offset},{y_offset + live_area_height - red_height} {x_offset + red_inside_point},{y_offset + live_area_height - red_inside_point} {x_offset + red_width},{y_offset + live_area_height} {x_offset},{y_offset + live_area_height}" />'
     )    
     lines.append(
-        f'\t<polygon stroke="None" fill="{COLOR_BLUE}" points="{x_offset},{y_offset} {x_offset + max_width},{y_offset} {x_offset + max_width},{y_offset + max_height} {x_offset + blue_point_left},{y_offset + blue_point_top}" />'
+        f'\t<polygon stroke="None" fill="{COLOR_BLUE}" points="{x_offset},{y_offset} {x_offset + live_area_width},{y_offset} {x_offset + live_area_width},{y_offset + live_area_height} {x_offset + blue_point_left},{y_offset + blue_point_top}" />'
     )
 
     # Border
 
-    lines.append(build_border())
+    lines.append(build_border(size))
     lines.append(svg_footer())
 
     return lines
@@ -574,10 +801,10 @@ def save_svg(file_name, svg_string):
         svg_file.writelines("\n".join(svg_string))
 
 
-def main(image, highlight, size):
+def main(image, highlight, size, save):
     """Build logo image."""
 
-    PIXEL_WIDTH = size
+    size = Dimensions(int(size))
 
     if image == IMAGE_GRID:
         file_name = GRID_FILE
@@ -598,6 +825,9 @@ def main(image, highlight, size):
     else: 
         file_name = LOGO_FILE
         image_svg = logo_image(size=size)
+
+    if save:
+        file_name = file_name.replace('.svg', f"_{size.pixel_width}.svg")
     
     save_svg(file_name, image_svg)
 
@@ -626,11 +856,16 @@ if __name__ == "__main__":
     parser.add_argument(
         "--size",
         help='Size of the image in pixels. (Default: %(default)s)',
-        choices=['20', '24', '48', '192'],
+        choices=[8, 20, 24, 29, 38, 40, 48, 58, 60, 76, 80, 87, 114, 120, 152, 167, 180, 192, 1024],
+        type=int,
         default="48"
+    )
+    parser.add_argument(
+        "--save",
+        help='Save the image to a new filename,'
     )
 
     args = parser.parse_args()
 
-    print(args.image, args.highlight, args.size)
-    main(args.image, args.highlight, args.size)
+    print(args.image, args.highlight, args.size, args.save)
+    main(args.image, args.highlight, args.size, args.save)
