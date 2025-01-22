@@ -52,6 +52,9 @@ Dark Blue Grey | 42 42 42 | #2A2A2A
 
 The typeface is simple and modern. 
 
-The main text uses Geologica
+The main text uses Geologica 
+Font Weigth 900
 
 ![Font Example](./assets/font-example.svg)
+
+![Font Name Example](./assets/font-name-example.svg)
