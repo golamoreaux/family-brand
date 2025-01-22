@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="610" height="200" version="1.1">
+<style type="text/css">
+    @font-face {
+      font-family: 'Geologica';
+      src: url('https://fonts.googleapis.com/css2?family=Geologica:wght@100..900');
+    }
+  </style>
+  <text x="0" y="0" style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35;font-family:Geologica;">
+<tspan x="0" dy="1em">Geologica</tspan>
+<tspan x="0" dy="1em">ABCDEFGHIJKLMNOPQRSTUVWXYZ</tspan>
+<tspan x="0" dy="1em">abcdefghijklmnopqrstuvwxyz</tspan>
+<tspan x="0" dy="1em">SINISTER FIELD</tspan>
+</text>
+</svg>
