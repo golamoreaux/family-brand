@@ -1,10 +1,40 @@
-# Logo
+# Lamoreaux Family Brand
 
 There are two wide logos. One for light backgrounds and one for dark
 
 ![Image of Lamoreaux Logo](./assets/LamoreauxLogo600x236.png)
 
-![Image of Lamoreaux Logo](./assets/LamoreauxLogoDark600x236.png)
+![Image of Lamoreaux Logo Dark](./assets/LamoreauxLogoDark600x236.png)
+
+<details>
+<summary>Logo Variations</summary>
+
+![Image of Lamoreaux Logo svg](./assets/LamoreauxLogo.svg)
+
+![Image of Lamoreaux Logo 1280x720](./assets/LamoreauxLogo1280x720.png)
+
+![Image of Lamoreaux Logo svg](./assets/LamoreauxName.svg)
+
+
+</details>
+
+## Icon
+![Image of Lamoreaux Logo 100x100](./assets/LamoreauxLogo100x100.png)
+
+
+<details>
+<summary>Icon Variations</summary>
+
+
+![Image of Lamoreaux Logo png](./assets/LamoreauxLogo.png)
+
+
+![Image of Lamoreaux Logo png](./assets/logo_48.svg)
+
+
+
+
+</details>
 
 
 ## Design
@@ -27,6 +57,8 @@ Based on a 100x100 design
 ## Key Line
 
 The logo uses the Keyline from material design
+
+![Keyline 48x48](./assets/keyline_inkscape.svg)
 
 ![Keyline 48x48](./assets/keyline_gen_48.svg)
 
@@ -62,7 +94,10 @@ The main text uses Garamond
 
 ![Font Example](./assets/font-example.svg)
 
+![Font Example](./assets/font-example.PNG)
+
 ![Font Name Example](./assets/font-name-example.svg)
+
 
 # Standard Icon Sizes
 
