@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 180 180"
+   width="180"
+   height="180"
+   version="1.1"
+   id="svg4"
+   xml:space="preserve"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs4" /><style
+     id="style1">
+      @media (prefers-color-scheme: light) {
+         .sinisterbox, .sinisterline{
+            fill: #303030;
+         }
+         .dexterbox, .dexterline{
+            fill: #ffffff;
+         }
+
+         .sinisterbox{ 
+            stroke: #303030;
+         }
+         .dexterbox {
+            stroke: #303030;
+         }
+      }  
+
+      @media (prefers-color-scheme: dark) {
+
+         .sinisterbox, .sinisterline{
+            fill: #ffffff;
+         }
+         .dexterbox, .dexterline{
+            fill: #303030;
+         }
+
+         .sinisterbox{ 
+            stroke: #303030;
+         }
+         .dexterbox {
+            stroke: #303030;
+         }
+      }
+     
+   </style><!-- boxes --><rect
+     x="38"
+     y="49"
+     width="52"
+     height="82"
+     class="sinisterbox"
+     fill="#303030"
+     stroke="#303030"
+     stroke-width="12"
+     id="rect1"
+     rx="6"
+     ry="6" /><rect
+     x="90"
+     y="49"
+     width="52"
+     height="82"
+     class="dexterbox"
+     fill="#ffffff"
+     stroke="#303030"
+     stroke-width="12"
+     id="rect2"
+     rx="6"
+     ry="6" /><!-- lines --><rect
+     x="78"
+     y="32"
+     width="12"
+     height="116"
+     class="sinisterline"
+     fill="#303030"
+     id="rect3" /><rect
+     x="90"
+     y="32"
+     width="12"
+     height="116"
+     class="dexterline"
+     fill="#ffffff"
+     id="rect4" /></svg>
